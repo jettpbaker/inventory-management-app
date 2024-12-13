@@ -6,6 +6,7 @@ import { pool, shutdown } from "./db/pool.js";
 const port = process.env.PORT || 8000;
 import indexRouter from "./routes/indexRouter.js";
 import genreRouter from "./routes/genreRouter.js";
+import bookRouter from "./routes/bookRouter.js";
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -33,6 +34,7 @@ app.use(express.urlencoded({ extended: false }));
 // Routes
 app.use("/", indexRouter);
 app.use("/genre", genreRouter);
+app.use("/book", bookRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

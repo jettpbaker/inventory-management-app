@@ -1,14 +1,10 @@
-import {
-  getAllGenres,
-  getBooksOfGenre,
-  insertNewGenre,
-} from "../db/queries.js";
+import { getBooksOfGenre, insertNewGenre, updateBook } from "../db/queries.js";
+import { fetchBookImage } from "../services/googleBooksService.js";
 
 export const renderNewGenrePage = async (req, res) => {
-  const genres = await getAllGenres();
   const errorMessage = req.query.error || null;
 
-  res.render("newGenre", { genres, errorMessage });
+  res.render("newGenre", { errorMessage });
 };
 
 export const addNewGenre = async (req, res) => {
@@ -31,9 +27,17 @@ export const addNewGenre = async (req, res) => {
 
 export const renderGenrePage = async (req, res) => {
   const genreName = req.params.genreName;
-
   const books = await getBooksOfGenre(genreName);
-  console.log(books);
 
-  res.render("genre", { genreName });
+  for (const book of books) {
+    if (!book.api_checked) {
+      const googleData = await fetchBookImage(book.book_name, book.author);
+      await updateBook(googleData.imageURL, book.book_name, book.author);
+
+      book.image_url = googleData.imageURL;
+      book.api_checked = true;
+    }
+  }
+
+  res.render("genre", { genreName, books });
 };

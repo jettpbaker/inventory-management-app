@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Book</title>
+    <link rel="stylesheet" href="/styles/newBookStyles.css" />
+  </head>
+  <body>
+    <button class="backButton">
+      <a href="/">Back Home</a>
+    </button>
+    <h1>Add A Book</h1>
+    <form action="/book/new" method="POST">
+      <label for="bookName">Book Name:</label>
+      <input type="text" name="bookName" id="bookName" required />
+
+      <label for="bookAuthor">Book Author: </label>
+      <input type="text" name="bookAuthor" id="bookAuthor" required />
+
+      <label for="bookGenre">Book Genre</label>
+      <select name="bookGenre" id="bookGenre">
+        <% genres.forEach((genre) => { %>
+        <option value="<%= genre.id %>"><%= genre.genre_name %></option>
+        <% }); %>
+      </select>
+
+      <fieldset>
+        <legend>Priority</legend>
+
+        <input type="radio" id="low" name="priority" value="1" />
+        <label for="low">Low</label>
+
+        <input type="radio" id="medium" name="priority" value="2" />
+        <label for="medium">Medium</label>
+
+        <input type="radio" id="high" name="priority" value="3" />
+        <label for="high">High</label>
+      </fieldset>
+
+      <button type="submit">Add Book</button>
+    </form>
+  </body>
+</html>

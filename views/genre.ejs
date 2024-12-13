@@ -5,5 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= genreName %></title>
   </head>
-  <body></body>
+  <body>
+    <header
+      style="display: flex; justify-content: space-between; align-items: center"
+    >
+      <h1><%= genreName %> Books</h1>
+      <a href="/book/new">Add Book</a>
+    </header>
+
+    <div style="display: flex; gap: 20px; flex-wrap: wrap">
+      <% books.forEach(book => { %>
+      <div
+        style="
+          border: 1px solid #ccc;
+          padding: 15px;
+          border-radius: 8px;
+          width: 200px;
+        "
+      >
+        <h2 style="margin-top: 0"><%= book.book_name %></h2>
+        <p><strong>By:</strong> <%= book.author %></p>
+        <% if (book.image_url) { %>
+        <img
+          src="<%= book.image_url %>"
+          alt="<%= book.book_name %> cover"
+          style="width: 100%; height: auto"
+        />
+        <% } else { %>
+        <p>No image available</p>
+        <% } %>
+      </div>
+      <% }); %>
+    </div>
+  </body>
 </html>
