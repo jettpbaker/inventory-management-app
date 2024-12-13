@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Genre</title>
+    <link rel="stylesheet" href="/styles/newGenreStyles.css" />
+  </head>
+  <body>
+    <button class="backButton">
+      <a href="/">Back Home</a>
+    </button>
+    <h1>Add A Genre</h1>
+    <form action="/genre/new" method="POST">
+      <label for="genreName">Genre Name:</label>
+      <input type="text" id="genreName" name="genreName" required />
+
+      <button type="submit">Add Genre</button>
+    </form>
+    <% if (errorMessage) { %>
+    <p class="errorMessage"><%= errorMessage %></p>
+    <% } %>
+  </body>
+</html>
