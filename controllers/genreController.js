@@ -1,4 +1,9 @@
-import { getBooksOfGenre, insertNewGenre, updateBook } from "../db/queries.js";
+import {
+  getBooksOfGenre,
+  insertNewGenre,
+  updateBook,
+  deleteGenreWithName,
+} from "../db/queries.js";
 import { fetchBookImage } from "../services/googleBooksService.js";
 
 export const renderNewGenrePage = async (req, res) => {
@@ -41,3 +46,33 @@ export const renderGenrePage = async (req, res) => {
 
   res.render("genre", { genreName, books });
 };
+
+export const deleteGenre = async (req, res) => {
+  const genreName = req.params.genreName;
+
+  try {
+    const success = await deleteGenreWithName(genreName);
+
+    if (success) {
+      res.redirect("/");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Encountered error deleting genre" });
+  }
+};
+
+/*
+
+export const deleteBook = async (req, res) => {
+  const bookId = req.params.id;
+  try {
+    await deleteBookWithId(bookId);
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Encountered error deleting book" });
+  }
+};
+
+*/

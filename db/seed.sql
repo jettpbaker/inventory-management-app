@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS books (
     api_checked BOOLEAN DEFAULT FALSE,
     read_priority INTEGER NOT NULL,
     CONSTRAINT valid_priority CHECK (read_priority IN (1, 2, 3)),
-    CONSTRAINT fk_genre FOREIGN KEY (genre_id) REFERENCES genres(id)
+    CONSTRAINT fk_genre FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS unique_book_author_case_insensitive

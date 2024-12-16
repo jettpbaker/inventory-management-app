@@ -37,7 +37,7 @@ export async function getAllBooks() {
 export async function getBooksOfGenre(genre) {
   try {
     const { rows } = await pool.query(
-      "SELECT book_name, author, image_url, api_checked, read_priority FROM books b JOIN genres g ON b.genre_id = g.id WHERE LOWER(g.genre_name) = LOWER($1)",
+      "SELECT b.id, book_name, author, image_url, api_checked, read_priority FROM books b JOIN genres g ON b.genre_id = g.id WHERE LOWER(g.genre_name) = LOWER($1)",
       [genre]
     );
     return rows;
@@ -73,5 +73,25 @@ export async function insertNewBook(name, author, genre_id, priority) {
     }
 
     console.error("Error inserting new genre: ", error);
+  }
+}
+
+export async function deleteBookWithId(id) {
+  try {
+    await pool.query("DELETE FROM books WHERE id = $1", [id]);
+    return true;
+  } catch (error) {
+    console.error("Error deleting book by id: ", error);
+    throw new Error("Failed to delete book by id");
+  }
+}
+
+export async function deleteGenreWithName(name) {
+  try {
+    await pool.query("DELETE FROM genres WHERE genre_name = $1", [name]);
+    return true;
+  } catch (error) {
+    console.error("Error deleting genre by name: ", error);
+    throw new Error("Failed to delete genre by name");
   }
 }

@@ -1,4 +1,8 @@
-import { getAllGenres, insertNewBook } from "../db/queries.js";
+import {
+  getAllGenres,
+  insertNewBook,
+  deleteBookWithId,
+} from "../db/queries.js";
 
 export const renderNewBookPage = async (req, res) => {
   const genres = await getAllGenres();
@@ -26,24 +30,13 @@ export const addNewBook = async (req, res) => {
   }
 };
 
-/* 
-
-export const addNewGenre = async (req, res) => {
-  const newGenre = req.body.genreName.trim();
-
+export const deleteBook = async (req, res) => {
+  const bookId = req.params.id;
   try {
-    const success = await insertNewGenre(newGenre);
-    if (success) {
-      res.redirect("/");
-    } else {
-      res.redirect("/genre/new?error=Genre already exists");
-    }
+    await deleteBookWithId(bookId);
+    res.json({ success: true });
   } catch (error) {
-    console.error("Error in genre creation route: ", error);
-    res.redirect(
-      "/genres/new?error=An error occurred while creating the genre"
-    );
+    console.error("Error:", error);
+    res.status(500).json({ error: "Encountered error deleting book" });
   }
 };
-
-*/

@@ -11,6 +11,10 @@
       <a href="/">Back Home</a>
     </button>
 
+    <button class="deleteGenre" data-genre-name="<%= genreName %>">
+      Delete Genre
+    </button>
+
     <header
       style="display: flex; justify-content: space-between; align-items: center"
     >
@@ -20,7 +24,7 @@
 
     <main>
       <% books.forEach(book => { %>
-      <div class="bookCard">
+      <div class="bookCard" data-book-id="<%= book.id %>">
         <h2><%= book.book_name %></h2>
         <p><%= book.author %></p>
         <div class="imageContainer">
@@ -37,10 +41,62 @@
             <%= book.read_priority === 1 ? 'Low' : book.read_priority === 2 ?
             'Medium' : book.read_priority === 3 ? 'High' : '' %>
           </p>
-          <button class="deleteButton">Delete</button>
+          <form class="deleteForm">
+            <button type="submit" class="deleteButton">Delete</button>
+          </form>
         </div>
       </div>
       <% }); %>
     </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const deleteForms = document.querySelectorAll(".deleteForm");
+        const deleteGenreButton = document.querySelector(".deleteGenre");
+
+        deleteForms.forEach((form) => {
+          form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const bookCard = form.closest(".bookCard");
+            const bookId = bookCard.dataset.bookId;
+
+            bookCard.remove();
+
+            try {
+              const response = await fetch(`/book/${bookId}`, {
+                method: "DELETE",
+              });
+
+              if (!response.ok) {
+                console.error("Failed to delete book");
+                alert("Failed to delete book. Please try again.");
+              }
+            } catch (error) {
+              console.error("Error: ", error);
+              alert("An error occurred while deleting the book.");
+            }
+          });
+        });
+
+        deleteGenreButton.addEventListener("click", async () => {
+          const genreName = deleteGenreButton.dataset.genreName;
+
+          try {
+            const response = await fetch(`/genre/${genreName}`, {
+              method: "DELETE",
+            });
+
+            if (!response.ok) {
+              console.error("Failed to delete genre");
+              alert("Failed to delete genre. Please try again.");
+            }
+          } catch (error) {
+            console.error("Error: ", error);
+            alert("An error occurred while deleting the genre.");
+          }
+        });
+      });
+    </script>
   </body>
 </html>
