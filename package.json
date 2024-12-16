@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --env-file=.env.development.local --watch app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "postdeploy": "node db/populatedb.js"
   },
   "keywords": [],
   "author": "",
