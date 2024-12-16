@@ -4,7 +4,7 @@ import path from "path";
 
 const { Client } = pkg;
 
-const dbUrl = process.env.DB_URL;
+const dbUrl = process.env.DATABASE_URL;
 
 const sqlFilePath = path.resolve("./db/seed.sql");
 const SQL = readFileSync(sqlFilePath, "utf-8");
