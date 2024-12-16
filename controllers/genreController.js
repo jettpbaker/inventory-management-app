@@ -49,30 +49,15 @@ export const renderGenrePage = async (req, res) => {
 
 export const deleteGenre = async (req, res) => {
   const genreName = req.params.genreName;
-
   try {
     const success = await deleteGenreWithName(genreName);
-
     if (success) {
-      res.redirect("/");
+      res.json({ success: true });
+    } else {
+      res.status(500).json({ error: "Failed to delete genre" });
     }
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Encountered error deleting genre" });
   }
 };
-
-/*
-
-export const deleteBook = async (req, res) => {
-  const bookId = req.params.id;
-  try {
-    await deleteBookWithId(bookId);
-    res.json({ success: true });
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: "Encountered error deleting book" });
-  }
-};
-
-*/

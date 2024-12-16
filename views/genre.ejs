@@ -90,7 +90,10 @@
             if (!response.ok) {
               console.error("Failed to delete genre");
               alert("Failed to delete genre. Please try again.");
+              return;
             }
+
+            window.location.href = "/";
           } catch (error) {
             console.error("Error: ", error);
             alert("An error occurred while deleting the genre.");

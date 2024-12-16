@@ -3,14 +3,14 @@ CREATE TABLE IF NOT EXISTS genres (
     genre_name VARCHAR(50) NOT NULL
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS unique_genre_name_case_insensitive 
+CREATE UNIQUE INDEX IF NOT EXISTS unique_genre_name_case_insensitive
 ON genres (LOWER(genre_name));
 
 CREATE TABLE IF NOT EXISTS books (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     book_name VARCHAR(255) NOT NULL,
     author VARCHAR(255) NOT NULL,
-    genre_id INTEGER REFERENCES genres(id),
+    genre_id INTEGER,  
     image_url VARCHAR(255),
     api_checked BOOLEAN DEFAULT FALSE,
     read_priority INTEGER NOT NULL,

@@ -72,7 +72,7 @@ export async function insertNewBook(name, author, genre_id, priority) {
       return false;
     }
 
-    console.error("Error inserting new genre: ", error);
+    console.error("Error inserting new book: ", error);
   }
 }
 
