@@ -4,8 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= genreName %></title>
+    <link rel="stylesheet" href="/styles/genreStyles.css" />
   </head>
   <body>
+    <button class="backButton">
+      <a href="/">Back Home</a>
+    </button>
+
     <header
       style="display: flex; justify-content: space-between; align-items: center"
     >
@@ -13,29 +18,29 @@
       <a href="/book/new">Add Book</a>
     </header>
 
-    <div style="display: flex; gap: 20px; flex-wrap: wrap">
+    <main>
       <% books.forEach(book => { %>
-      <div
-        style="
-          border: 1px solid #ccc;
-          padding: 15px;
-          border-radius: 8px;
-          width: 200px;
-        "
-      >
-        <h2 style="margin-top: 0"><%= book.book_name %></h2>
-        <p><strong>By:</strong> <%= book.author %></p>
-        <% if (book.image_url) { %>
-        <img
-          src="<%= book.image_url %>"
-          alt="<%= book.book_name %> cover"
-          style="width: 100%; height: auto"
-        />
-        <% } else { %>
-        <p>No image available</p>
-        <% } %>
+      <div class="bookCard">
+        <h2><%= book.book_name %></h2>
+        <p><%= book.author %></p>
+        <div class="imageContainer">
+          <% if (book.image_url) { %>
+          <img src="<%= book.image_url %>" alt="<%= book.book_name %> cover" />
+          <% } else { %>
+          <p>No image available</p>
+          <% } %>
+        </div>
+        <div class="bookCardFooter">
+          <p
+            class="priority <%= book.read_priority === 1 ? 'low' : book.read_priority === 2 ? 'medium' : book.read_priority === 3 ? 'high' : '' %>"
+          >
+            <%= book.read_priority === 1 ? 'Low' : book.read_priority === 2 ?
+            'Medium' : book.read_priority === 3 ? 'High' : '' %>
+          </p>
+          <button class="deleteButton">Delete</button>
+        </div>
       </div>
       <% }); %>
-    </div>
+    </main>
   </body>
 </html>

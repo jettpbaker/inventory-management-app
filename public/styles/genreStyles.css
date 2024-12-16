@@ -1,0 +1,140 @@
+body {
+  max-width: 100vw;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 40px;
+  padding: 20px;
+}
+
+.backButton {
+  position: absolute;
+  left: 40px;
+  top: 10px;
+}
+
+.backButton > a {
+  text-decoration: none;
+  color: white;
+}
+
+header {
+  padding: 20px;
+}
+
+.bookCard {
+  /* border: 1px solid #333; */
+  padding: 10px;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.5s;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.bookCard:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.bookCard > h2 {
+  margin: 5px 0px;
+}
+
+.bookCard > p {
+  margin: 5px 0px;
+}
+
+.imageContainer {
+  width: 100%;
+  height: 100%;
+  margin: 5px 0px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.imageContainer > img {
+  object-fit: scale-down;
+  /* height: 100%;
+  width: 100%; */
+}
+
+.bookCardFooter {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: end;
+
+  gap: 10%;
+
+  margin-top: 10px;
+}
+
+.deleteButton {
+  background-color: rgb(186, 49, 49);
+  margin: 0;
+
+  height: 100%;
+  width: 45%;
+}
+
+.deleteButton:hover {
+  background-color: rgb(204, 66, 66);
+}
+
+.priority {
+  color: #f9f9f9;
+
+  margin: 0;
+  border-radius: 4px;
+
+  height: 100%;
+  width: 45%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.low {
+  background-color: rgb(144, 220, 31);
+}
+
+.medium {
+  background-color: orange;
+}
+
+.high {
+  background-color: #f9f9f9;
+  color: red;
+  border: 1px solid red;
+  height: 95%;
+
+  box-shadow: 2px 2px 4px rgba(255, 0, 0, 0.7);
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #444;
+}
